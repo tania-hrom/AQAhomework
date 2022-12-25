@@ -1,16 +1,20 @@
 package config;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class BaseClass {
 
-    public static WebDriver driver = initDriverChrome();
-
-    private static WebDriver initDriverChrome() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        return driver;
+    static public WebDriver driver;
+    @BeforeClass
+    public static void startDriver() {
+        driver = DriverConfig.createDriver(BrowsersList.Chrome);
+    }
+    @AfterClass
+    public static void endDriver() throws InterruptedException {
+        Thread.sleep(3000);
+        driver.quit();
     }
 
 
